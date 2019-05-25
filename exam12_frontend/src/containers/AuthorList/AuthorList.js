@@ -27,7 +27,6 @@ class AuthorList extends Component {
     };
 
     render() {
-        console.log(this.props.pictures);
         const authorPictures = this.props.pictures.filter(picture =>
             picture.user._id === this.props.match.params.id
         );
@@ -48,7 +47,7 @@ class AuthorList extends Component {
         }
         return (
             <Fragment>
-                {/*<h3>{this.props.pictures.user.displayName}'s gallery</h3>*/}
+                <h3>{authorPictures[0].user.displayName}'s gallery</h3>
                 <CardColumns>
                     {pictures}
                 </CardColumns>

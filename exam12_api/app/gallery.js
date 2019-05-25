@@ -24,6 +24,7 @@ const upload = multer({storage});
 const router = express.Router();
 
 router.get('/', (req, res) => {
+    console.log(req.query.user);
     let criteria = {};
     if (req.query.user) {
         criteria = {
@@ -43,7 +44,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Gallery.findById(req.params.id)
+    Gallery.findById(req.params.id).populate('user')
         .then(result => {
             if (result) return res.send(result);
             res.sendStatus(404)
