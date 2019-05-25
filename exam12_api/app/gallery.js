@@ -4,6 +4,7 @@ const path = require('path');
 const config = require('../config');
 const nanoid = require('nanoid');
 const auth = require('../middleware/auth');
+const tryAuth = require('../middleware/tryAuth');
 const permit = require('../middleware/permit');
 
 const Gallery = require('../models/Gallery');
@@ -23,14 +24,22 @@ const upload = multer({storage});
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    Gallery.find().populate({
+    let criteria = {};
+    if (req.query.user) {
+        criteria = {
+            user: req.query.user
+        }
+    }
+    Gallery.find(criteria).populate({
         path: 'user',
-        select: {displayName: 'displayName', id: 'id'}
+        select: {displayName: 'displayName', _id: '_id'}
     })
-        .then(pictures => {
-            res.send(pictures)
-                .catch(() => res.sendStatus(500))
+        .then(result => {
+            if (result) return res.send(result);
+            res.sendStatus(404)
         })
+        .catch(error => res.status(500).send(error));
+
 });
 
 router.get('/:id', (req, res) => {
@@ -43,7 +52,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.post('/', [auth, permit('user', 'author'), upload.single('image')], (req, res) => {
+router.post('/', auth, upload.single('image'), (req, res) => {
     const galleryData = req.body;
     if (req.file) {
         galleryData.image = req.file.filename;
