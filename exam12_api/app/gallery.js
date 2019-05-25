@@ -67,5 +67,11 @@ router.post('/', auth, upload.single('image'), (req, res) => {
         .catch(error => res.sendStatus(400).send(error));
 });
 
+router.delete('/:id', auth, async (req, res) => {
+    await Gallery.deleteOne({_id: req.params.id});
+
+    res.send('success');
+});
+
 
 module.exports = router;

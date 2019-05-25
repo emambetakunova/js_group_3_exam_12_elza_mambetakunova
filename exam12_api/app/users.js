@@ -43,24 +43,23 @@ router.post('/', upload.single('avatarImage'), (req, res) => {
     }
 });
 
-router.post('/sessions', async (req, res) => {
-    const user = await User.findOne({username: req.body.username});
+router.post('/sessions', async (req, res)=>{
+    const user = await User.findOne({username:req.body.username});
 
-    if (!user) {
-        return res.status(400).send({error: 'Username/password incorrect'})
+    if(!user){
+        return res.status(400).send({error:'User does not exist '});
     }
 
-    const isMatch = user.checkPassword(req.body.password);
+    const isMatch = await user.checkPassword(req.body.password);
 
-    if (!isMatch) {
-        return res.status(400).send({error: 'Username/password incorrect'})
+    if(!isMatch){
+        return res.status(400).send({error: 'Password incorrect'});
     }
-
     user.generateToken();
 
     await user.save();
 
-    res.send({token: user.token, username: user.username, role: user.role})
+    res.send(user);
 });
 
 
@@ -90,13 +89,11 @@ router.post('/facebookLogin', async(req, res) => {
     try{
         const response = await  axios.get(debugTokenUrl);
         const responseData = response.data;
-
         if(responseData.data.error) {
             return res.status(500).send({error: 'Token incorrect'})
         }
 
         if(responseData.data.user_id !== req.body.id) {
-
             return res.status(500).send({error: 'User is wrong'})
         }
 
