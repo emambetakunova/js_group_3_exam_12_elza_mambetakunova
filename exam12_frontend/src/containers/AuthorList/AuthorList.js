@@ -34,6 +34,7 @@ class AuthorList extends Component {
                     user={this.props.user._id}
                     image={picture.image}
                     title={picture.title}
+                    paramsId={this.props.match.params.id}
                     delete={() => this.goDelete(picture._id)}
                 />
             ));

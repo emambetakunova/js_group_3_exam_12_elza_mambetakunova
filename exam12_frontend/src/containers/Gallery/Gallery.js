@@ -29,7 +29,6 @@ class Gallery extends Component {
     };
 
     render() {
-        console.log(this.props.pictures._id);
         let pictures = this.props.pictures;
         if (pictures.length === 0) {
             pictures = <h2>Add new picture</h2>;
