@@ -55,19 +55,16 @@ class AuthorList extends Component {
         );
     }
 }
-
 const mapStateToProps = state => {
     return {
         pictures: state.gallery.pictures,
         user: state.user.user
     }
 };
-
 const mapDispatchToProps = dispatch => {
     return {
         fetchGallery: () => dispatch(fetchGallery()),
         deletePicture: id => dispatch(deletePicture(id))
     }
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorList);
