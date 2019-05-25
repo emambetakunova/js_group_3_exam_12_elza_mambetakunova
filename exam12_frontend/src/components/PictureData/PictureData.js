@@ -1,9 +1,8 @@
 import React from 'react';
-import {Col, Row, Card, CardBody, CardTitle, Button} from "reactstrap";
-
+import {Col, Row, Card, CardBody, Button, CardTitle} from "reactstrap";
 import GalleryThumbnail from "../GalleryThumbnail/GalleryThumbnail";
 
-const GalleryCard = props => {
+const PictureData = props => {
     return (
         <Row>
             <Col md="10">
@@ -11,10 +10,8 @@ const GalleryCard = props => {
                     <CardBody>
                         <GalleryThumbnail image={props.image}/>
                         <CardTitle>
-                            <Button onClick={props.getPictureId}>More...</Button>
+                            <Button onClick={props.close}>Close</Button>
                         </CardTitle>
-                        <CardTitle><strong>Title: {props.title}</strong></CardTitle>
-                        <CardTitle onClick={props.authorGallery}><strong>Author: {props.author}</strong></CardTitle>
                     </CardBody>
                 </Card>
             </Col>
@@ -22,4 +19,4 @@ const GalleryCard = props => {
     );
 };
 
-export default GalleryCard;
+export default PictureData;

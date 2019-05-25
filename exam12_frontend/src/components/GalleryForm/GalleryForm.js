@@ -45,11 +45,11 @@ class GalleryForm extends Component {
     render() {
         return (
                 <Form onSubmit={this.submitFormHandler}>
-                    <h2>Add new picture</h2>
                     <FormElement
                         propertyName="title"
                         title="Title"
                         type="text"
+                        required
                         placeholder="Enter picture title"
                         onChange={this.inputChangeHandler}
                         value={this.state.title}
@@ -59,6 +59,7 @@ class GalleryForm extends Component {
                         propertyName="image"
                         title="Image"
                         type="file"
+                        required
                         onChange={this.fileChangeHandler}
                         error={this.fieldHasError('image')}
                     />
