@@ -7,7 +7,7 @@ const GallerySchema = new Schema({
         type: String, required: true
     },
     image: {
-        type: String
+        type: String, required: true
     },
     user: {
         type: Schema.Types.ObjectId,
