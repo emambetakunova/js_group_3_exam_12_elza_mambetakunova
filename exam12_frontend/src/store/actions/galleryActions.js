@@ -11,6 +11,8 @@ export const CREATE_PICTURE_SUCCESS = "CREATE_PICTURE_SUCCESS";
 export const DELETE_PICTURE_SUCCESS = "DELETE_PICTURE_SUCCESS";
 export const DELETE_PICTURE_FAILURE = "DELETE_PICTURE_FAILURE";
 
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
 const fetchGallerySuccess = data => ({type: FETCH_GALLERY_SUCCESS, data});
 
 const fetchGalleryFailure = error => ({type: FETCH_GALLERY_FAILURE, error});
@@ -23,9 +25,19 @@ const deletePictureSuccess = () => ({type: DELETE_PICTURE_SUCCESS});
 
 const deletePictureFailure = () => ({type: DELETE_PICTURE_FAILURE});
 
+export const closeModal = () => ({type: CLOSE_MODAL});
 
-export const fetchGallery = () => {
+
+export const fetchGallery = (id) => {
     return dispatch => {
+        let query = null;
+        if (id) {
+            query = '/?author=';
+            return axios.get('/gallery' + query + id).then(
+                response => dispatch(fetchGallerySuccess(response.data)),
+                error => dispatch(fetchGalleryFailure(error))
+            );
+        }
         return axios.get('/gallery').then(
             response => dispatch(fetchGallerySuccess(response.data)),
             error => dispatch(fetchGalleryFailure(error))

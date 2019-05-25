@@ -1,8 +1,9 @@
-import {FETCH_GALLERY_SUCCESS, FETCH_GALLERY_FAILURE, FETCH_PICTURE_ID_SUCCESS} from "../actions/galleryActions";
+import {FETCH_GALLERY_SUCCESS, FETCH_GALLERY_FAILURE, FETCH_PICTURE_ID_SUCCESS, CLOSE_MODAL} from "../actions/galleryActions";
 
 const initialState = {
     pictures: [],
     pictureId: [],
+    showModal: false,
     error: null
 };
 
@@ -21,7 +22,13 @@ const galleryReducer = (state = initialState, action) => {
         case FETCH_PICTURE_ID_SUCCESS:
             return {
                 ...state,
+                showModal: true,
                 pictureId: action.data
+            };
+        case CLOSE_MODAL:
+            return {
+                ...state,
+                showModal: false
             };
         default:
             return state;
