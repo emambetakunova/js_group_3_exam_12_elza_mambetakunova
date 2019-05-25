@@ -17,8 +17,8 @@ const run = async () => {
     }
 
     const users = await User.create(
-        {username: 'author', password: '123', role: 'author', token: nanoid(), avatarImage: 'adam.jpeg', displayName: 'Author'},
-        {username: 'user', password: '123', role: 'user', token: nanoid(), avatarImage: 'leila.jpeg', displayName: 'User'}
+        {username: 'Adam', password: '123', token: nanoid(), avatarImage: 'adam.jpeg', displayName: 'Adam'},
+        {username: 'Leila', password: '123', token: nanoid(), avatarImage: 'leila.jpeg', displayName: 'Leila'}
 
     );
 
