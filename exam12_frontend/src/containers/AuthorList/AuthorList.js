@@ -13,6 +13,12 @@ class AuthorList extends Component {
         this.props.fetchGallery(id);
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.props.fetchGallery(this.props.match.params.id)
+        }
+    }
+
     goDelete = id => {
         this.props.deletePicture(id);
         this.props.history.push({
@@ -21,6 +27,7 @@ class AuthorList extends Component {
     };
 
     render() {
+        console.log(this.props.pictures);
         const authorPictures = this.props.pictures.filter(picture =>
             picture.user._id === this.props.match.params.id
         );
@@ -31,7 +38,7 @@ class AuthorList extends Component {
             pictures = authorPictures.map(picture => (
                 <AuthorCard
                     key={picture._id}
-                    user={this.props.user._id}
+                    user={this.props.user ? this.props.user._id : null}
                     image={picture.image}
                     title={picture.title}
                     paramsId={this.props.match.params.id}
@@ -41,7 +48,7 @@ class AuthorList extends Component {
         }
         return (
             <Fragment>
-                {/*<h3>{this.props.user.displayName}</h3>*/}
+                {/*<h3>{this.props.pictures.user.displayName}'s gallery</h3>*/}
                 <CardColumns>
                     {pictures}
                 </CardColumns>
