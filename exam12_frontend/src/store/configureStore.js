@@ -6,12 +6,14 @@ import {loadState, saveState} from "./localStorage";
 import axios from '../axios-api';
 
 import userReducer from "./reducers/userReducer";
+import galleryReducer from "./reducers/galleryReducer";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
     router: connectRouter(history),
-    user: userReducer
+    user: userReducer,
+    gallery: galleryReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
