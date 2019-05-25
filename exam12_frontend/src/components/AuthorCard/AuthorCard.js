@@ -11,7 +11,7 @@ const AuthorCard = props => {
                     <CardBody>
                         <GalleryThumbnail image={props.image}/>
                         <CardTitle><strong>Title: {props.title}</strong></CardTitle>
-                        {props.user === props.user._id ?
+                        {(props.user && props.user === props.paramsId)?
                         <CardTitle>
                             <Button type="submit" color="secondary" onClick={props.delete}>Delete</Button>
                         </CardTitle> : null}
