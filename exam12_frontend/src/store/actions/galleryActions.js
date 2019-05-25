@@ -1,5 +1,4 @@
 import axios from "../../axios-api";
-import {push} from 'connected-react-router';
 
 export const FETCH_GALLERY_SUCCESS = 'FETCH_GALLERY_SUCCESS';
 export const FETCH_GALLERY_FAILURE = "FETCH_GALLERY_FAILURE";
@@ -63,13 +62,11 @@ export const createPicture = artistData => {
 };
 
 export const deletePicture = id => {
-    return (dispatch, getState) => {
-        let token = getState().user.user.token;
-        const header = {headers: {'Authorization': token}};
-        return axios.delete('/gallery/' + id, header).then(
+    return (dispatch) => {
+        return axios.delete('/gallery/' + id).then(
             () => {
                 dispatch(deletePictureSuccess());
-                dispatch(push('/'));
+                dispatch(fetchGallery());
             },
             error => {
                 if(error.response  && error.response.data){
